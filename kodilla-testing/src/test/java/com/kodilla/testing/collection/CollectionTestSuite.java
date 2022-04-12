@@ -38,7 +38,7 @@ public class CollectionTestSuite {
         List<Integer> exterminatorList = exterminator.exterminate(testListEmpty);
 
         //Then
-        Assertions.assertTrue(exterminatorList.isEmpty());
+        Assertions.assertNull(exterminatorList);
     }
 
     @DisplayName("Testing if exterminator method returns list of ONLY even numbers")
@@ -52,18 +52,13 @@ public class CollectionTestSuite {
         testListNormal.add(5);
         testListNormal.add(8);
         testListNormal.add(12);
-
-        //When
         List<Integer> exterminatorList = exterminator.exterminate(testListNormal);
 
-        //Then
-        for (int i:exterminatorList) {
-            //Is it a good approach to check if list has ONLY even numbers?
-            Assertions.assertTrue(i%2==0);
-        }
+        //When
+        List<Integer> resultList = new ArrayList<>(List.of(8,12));
 
-//        Assertions.assertEquals(exterminatorList, resultList);
-//        Assertions.assertTrue(exterminatorList.contains(exterminatorList.));
+        //Then
+        Assertions.assertEquals(exterminatorList, resultList);
 
     }
 }

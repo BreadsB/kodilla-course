@@ -38,16 +38,17 @@ public class ShapeCollectorTestSuite {
     void testRemoveShape() {
         ShapeCollector collector = new ShapeCollector();
         Shape square = new Square(5.00);
+        collector.addShape(square);
         boolean result = collector.removeShape(square);
         Assertions.assertTrue(result);
     }
 
     @DisplayName("Test - remove shape from empty collector")
     @Test
-    void testRemoveShapeFromEmptyCollector() {
+    void testRemoveShapeNotExist() {
         ShapeCollector collector = new ShapeCollector();
         Shape square = new Square(5.00);
-        Assertions.assertTrue(collector.removeShape(square));
+        Assertions.assertFalse(collector.removeShape(square));
     }
 
     @DisplayName("Test - get shape from collector")

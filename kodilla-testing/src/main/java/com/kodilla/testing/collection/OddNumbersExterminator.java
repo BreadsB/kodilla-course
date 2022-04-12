@@ -10,6 +10,7 @@ public class OddNumbersExterminator {
 
         if(numbersList.size()==0) {
             System.out.println("Empty List");
+            return null;
         } else {
             for (Integer numbers : numbersList
             ) {
