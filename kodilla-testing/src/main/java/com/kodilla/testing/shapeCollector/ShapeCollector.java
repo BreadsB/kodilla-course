@@ -1,6 +1,7 @@
 package com.kodilla.testing.shapeCollector;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 
 public class ShapeCollector {
     private ArrayList<Shape> shapeList = new ArrayList<Shape>();
@@ -14,7 +15,7 @@ public class ShapeCollector {
     }
 
     public boolean removeShape(Shape shape) {
-        if(shape != null && shapeList.size() != 0) {
+        if(shape != null && shapeList.size() > 0 && shapeList.contains(shape)) {
             return shapeList.remove(shape);
         } else {
             return false;
@@ -33,7 +34,12 @@ public class ShapeCollector {
         if (shapeList.size() == 0) {
             return "List empty";
         } else {
-            return shapeList.toString();
+            StringBuilder sb = new StringBuilder();
+            for(Shape s : shapeList) {
+                sb.append(s.shapeName());
+                sb.append(",");
+            }
+            return sb.toString();
         }
     }
 }
