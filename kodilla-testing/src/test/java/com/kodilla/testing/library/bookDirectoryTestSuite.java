@@ -92,25 +92,46 @@ public class bookDirectoryTestSuite {
 
         @Test
         void testUserHasNoBooks() {
+            //GIVEN
             BookLibrary bookLibrary = new BookLibrary(libraryDatabaseMock);
-//            Book book1 = new Book("title 1", "author 1", 1990);
-            List<Book> bookList = new ArrayList<>(0);
-//            bookList.add(book1);
+            List<Book> bookList = new ArrayList<>();
             LibraryUser user = new LibraryUser("Mike", "Diamond", "123456789");
             when(libraryDatabaseMock.listBookInHandOf(user)).thenReturn(bookList);
+            //WHEN
             List<Book> result = bookLibrary.listBookInHandOf(user);
+            //THEN
             Assertions.assertEquals(0, result.size());
         }
 
         @Test
         void testUserHasOneBook() {
+            //GIVEN
             BookLibrary bookLibrary = new BookLibrary(libraryDatabaseMock);
+            LibraryUser user = new LibraryUser("Mike", "Diamond", "123456789");
             List<Book> bookList = new ArrayList<>();
+            Book book1 = new Book("title 1", "author 1", 1990);
+            bookList.add(book1);
+            when(libraryDatabaseMock.listBookInHandOf(user)).thenReturn(bookList);
+            //WHEN
+            List<Book> result = bookLibrary.listBookInHandOf(user);
+            //THEN
+            Assertions.assertEquals(1, result.size());
+            verify(libraryDatabaseMock, times(1)).listBookInHandOf(any());
         }
 
         @Test
         void testUserHasFiveBooks() {
+            //GIVEN
+            BookLibrary bookLibrary = new BookLibrary(libraryDatabaseMock);
+            LibraryUser user = new LibraryUser("John", "Smith", "5557779990");
+            List<Book> bookList = generateBookList(5);
+            when(libraryDatabaseMock.listBookInHandOf(user)).thenReturn(bookList);
 
+            //WHEN
+            List<Book> resultBookList = bookLibrary.listBookInHandOf(user);
+
+            //THEN
+            Assertions.assertEquals(5, resultBookList.size());
+            verify(libraryDatabaseMock, times(1)).listBookInHandOf(user);
         }
     }
-
