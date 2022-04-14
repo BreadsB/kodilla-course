@@ -1,7 +1,5 @@
 package com.kodilla.testing.shapeCollector;
 
-import java.text.DecimalFormat;
-
 import static java.lang.Math.PI;
 import static java.lang.Math.pow;
 
