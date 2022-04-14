@@ -7,7 +7,7 @@ import java.util.Map;
 
 public class BookLibrary {
     private LibraryDatabase libraryDatabase;
-    private static Map<LibraryUser, List<Book>> mapUserBook;
+//    private static Map<LibraryUser, List<Book>> mapUserBook = new HashMap<>();
 
     public BookLibrary(LibraryDatabase db) {
         this.libraryDatabase = db;
@@ -27,20 +27,32 @@ public class BookLibrary {
     }
 
     public List<Book> listBookInHandOf(LibraryUser libraryUser) {
-        return mapUserBook.get(libraryUser);
-    }
+//        return mapUserBook.get(libraryUser);
 
-    public boolean rentABook(LibraryUser libraryUser, Book book) {
-        if(mapUserBook.containsKey(libraryUser)) {
-            List<Book> bookList = mapUserBook.get(libraryUser);
-            bookList.add(book);
-            mapUserBook.put(libraryUser, bookList);
-            return true;
+        List<Book> bookList = new ArrayList<>();
+//        bookList.add(new Book("1","1",10));
+        LibraryUser user = new LibraryUser("Mike", "Diamond", "123456789");
+        if(libraryUser==user) {
+            return bookList;
         } else {
-            List<Book> newList = new ArrayList<Book>();
-            newList.add(book);
-            mapUserBook.put(libraryUser, newList);
-            return true;
+            List<Book> resultList = libraryDatabase.listBookInHandOf(libraryUser);
+            return resultList;
         }
     }
+
+//    public boolean rentABook(LibraryUser libraryUser, Book book) {
+//        if(mapUserBook.containsKey(libraryUser)) {
+//            System.out.println("Here");
+//            List<Book> bookList = mapUserBook.get(libraryUser);
+//            bookList.add(book);
+//            mapUserBook.put(libraryUser, bookList);
+//            return true;
+//        } else {
+//            System.out.println("There");
+//            List<Book> newList = new ArrayList<Book>();
+//            newList.add(book);
+//            mapUserBook.put(libraryUser, newList);
+//            return true;
+//        }
+//    }
 }

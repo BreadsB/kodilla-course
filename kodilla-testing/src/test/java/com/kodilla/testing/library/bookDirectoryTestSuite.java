@@ -93,13 +93,12 @@ public class bookDirectoryTestSuite {
         @Test
         void testUserHasNoBooks() {
             BookLibrary bookLibrary = new BookLibrary(libraryDatabaseMock);
+//            Book book1 = new Book("title 1", "author 1", 1990);
             List<Book> bookList = new ArrayList<>(0);
-            LibraryUser user = new LibraryUser("John","Smith","0000000");
-
+//            bookList.add(book1);
+            LibraryUser user = new LibraryUser("Mike", "Diamond", "123456789");
             when(libraryDatabaseMock.listBookInHandOf(user)).thenReturn(bookList);
-
             List<Book> result = bookLibrary.listBookInHandOf(user);
-
             Assertions.assertEquals(0, result.size());
         }
 
