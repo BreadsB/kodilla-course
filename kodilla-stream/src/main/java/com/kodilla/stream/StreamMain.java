@@ -1,6 +1,7 @@
 package com.kodilla.stream;
 
 import com.kodilla.stream.beautifier.PoemBeautifier;
+import com.kodilla.stream.iterate.NumbersGenerator;
 import com.kodilla.stream.lambda.*;
 import com.kodilla.stream.reference.FunctionalCalculator;
 import com.kodilla.stream.reference.PoemBeautifierReference;
@@ -44,5 +45,7 @@ public class StreamMain {
         });
         poemBeautifier.beautify("Building THEE NEW houses", PoemBeautifierReference::lowerCases);
 
+        System.out.println("Generate 20 numbers using Stream NumbersGenerator");
+        NumbersGenerator.generateEven(20);
     }
 }
