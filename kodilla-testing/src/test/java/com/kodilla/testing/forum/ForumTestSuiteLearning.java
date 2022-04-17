@@ -47,7 +47,7 @@ public class ForumTestSuiteLearning {
         SimpleUser simpleUser = new SimpleUser("The Forum User", "Mike John");
 
         //Act
-        String result = simpleUser.getUserName();
+        String result = simpleUser.getRealName();
         System.out.println("Testing: "+result);
 
         //Assert
