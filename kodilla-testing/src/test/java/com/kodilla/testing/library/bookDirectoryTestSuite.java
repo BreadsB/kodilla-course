@@ -100,7 +100,7 @@ public class bookDirectoryTestSuite {
             //WHEN
             List<Book> result = bookLibrary.listBookInHandOf(user);
             //THEN
-            Assertions.assertEquals(0, result.size());
+            Assertions.assertEquals(null, result);
         }
 
         @Test

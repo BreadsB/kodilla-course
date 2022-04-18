@@ -20,15 +20,26 @@ public class BookLibrary {
 
     public List<Book> listBookInHandOf(LibraryUser libraryUser) {
 
-        Map<LibraryUser, List<Book>> mapUserBook = new HashMap<>();
-
-        if(mapUserBook.containsKey(libraryUser)) {
-//            return bookList;
-            return mapUserBook.get(libraryUser);
+//        Map<LibraryUser, List<Book>> mapUserBook = new HashMap<>();
+//        Nie musisz tworzyć nowej mapy, ona już powinna być w bazie danych.
+        List<Book> resultList = libraryDatabase.listBookInHandOf(libraryUser);
+        if(resultList.isEmpty()) {
+            System.out.println("Empty list");
+            return null;
         } else {
-            List<Book> resultList = libraryDatabase.listBookInHandOf(libraryUser);
-            mapUserBook.put(libraryUser, resultList);
             return resultList;
         }
+
+//        if(mapUserBook.containsKey(libraryUser)) {
+////            List<Book> resultList = libraryDatabase.listBookInHandOf(libraryUser);
+////            if resultList.isEmpty() { "pusta" }
+////            else { wyświetl listę z książkami }
+//            return mapUserBook.get(libraryUser);
+//        } else {
+////            utwórz nową listę
+//            List<Book> resultList = libraryDatabase.listBookInHandOf(libraryUser);
+//            mapUserBook.put(libraryUser, resultList);
+//            return resultList;
+//        }
     }
 }
