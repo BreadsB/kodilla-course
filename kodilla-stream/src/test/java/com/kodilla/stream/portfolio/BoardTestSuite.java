@@ -1,5 +1,6 @@
 package com.kodilla.stream.portfolio;
 
+import net.bytebuddy.asm.Advice;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
@@ -24,7 +25,7 @@ public class BoardTestSuite {
                 .mapToInt(task -> Math.abs(task.getCreated().compareTo(LocalDate.now())))
                 .average().getAsDouble();
 
-        Assertions.assertEquals(13.25, result);
+        Assertions.assertEquals(10.0, result);
     }
 
     @Test
@@ -95,10 +96,13 @@ public class BoardTestSuite {
         User user3 = new User("tester2", "Sophie Dubois");
         User user4 = new User("developer1", "Andrew Clark");
 
-        Task task1 = new Task("Unit tests", "Create unit test suite", user2, user1, LocalDate.now().minusDays(20), LocalDate.now().plusDays(30));
-        Task task2 = new Task("Automatic tests", "Create automatic tests suite", user3, user1, LocalDate.now().minusDays(20), LocalDate.now().plusDays(5));
+//        Task task1 = new Task("Unit tests", "Create unit test suite", user2, user1, LocalDate.now().minusDays(20), LocalDate.now().plusDays(30));
+        Task task1 = new Task("Unit tests", "Create unit test suite", user2, user1, LocalDate.now(), LocalDate.now().plusDays(30));
+//        Task task2 = new Task("Automatic tests", "Create automatic tests suite", user3, user1, LocalDate.now().minusDays(20), LocalDate.now().plusDays(5));
+        Task task2 = new Task("Automatic tests", "Create automatic tests suite", user3, user1, LocalDate.now().minusDays(10), LocalDate.now().plusDays(5));
         Task task3 = new Task("New functionality", "Prepare new functionality", user4, user1, LocalDate.now().minusDays(7), LocalDate.now().minusDays(3));
-        Task task4 = new Task("Test new functionality", "Test new functionality", user2, user4, LocalDate.now().minusDays(3), LocalDate.now().plusDays(10));
+//        Task task4 = new Task("Test new functionality", "Test new functionality", user2, user4, LocalDate.now().minusDays(3), LocalDate.now().plusDays(10));
+        Task task4 = new Task("Test new functionality", "Test new functionality", user2, user4, LocalDate.now().minusDays(20), LocalDate.now().plusDays(10));
         Task task5 = new Task("Check my tests", "Check my new tests", user2, user3, LocalDate.now().minusDays(10), LocalDate.now().plusDays(10));
         Task task6 = new Task("Problems with new functionality", "Replace a few lines of code in new functionality", user4, user2, LocalDate.now().minusDays(5), LocalDate.now().minusDays(2));
         Task task7 = new Task("Create Project", "Create plan for whole project", user1, user1, LocalDate.now().minusDays(13), LocalDate.now().minusDays(1));
@@ -111,7 +115,7 @@ public class BoardTestSuite {
         testerTaskList.addTask(task1);
         testerTaskList.addTask(task2);
         testerTaskList.addTask(task4);
-        testerTaskList.addTask(task5);
+//        testerTaskList.addTask(task5);
 
         TaskList masterTaskList = new TaskList("Done");
         masterTaskList.addTask(task7);
