@@ -17,10 +17,11 @@ public class ForumStatistics {
         this.commentsCount = statistics.commentsCount();
         this.usersNamesList = statistics.usersNames();
 
-        this.averageCommentsPerPost = averageCommentsPerPost();
-        this.averagePostsPerUser = averagePostsPerUser();
-        this.averageCommentsPerUser = averageCommentsPerUser();
-
+        if(postsCount>0) { this.averageCommentsPerPost = averageCommentsPerPost(); }
+        if(usersNamesList.size()>0) {
+            this.averagePostsPerUser = averagePostsPerUser();
+            this.averageCommentsPerUser = averageCommentsPerUser();
+        }
     }
 
     public int getPostsCount() {
@@ -28,6 +29,7 @@ public class ForumStatistics {
     }
 
     public int getCommentsCount() {
+
         return this.commentsCount;
     }
 
@@ -36,32 +38,21 @@ public class ForumStatistics {
     }
 
     private double averagePostsPerUser() {
-        if (getForumUsersCount()==0) {
-            return 0.0;
-        } else {
             return BigDecimal.valueOf((double) this.getPostsCount() / this.getForumUsersCount())
                     .setScale(2, RoundingMode.HALF_UP)
                     .doubleValue();
-        }
     }
 
     private double averageCommentsPerUser() {
-        if (getForumUsersCount()==0) {
-            return 0.0;
-        } else {
             return BigDecimal.valueOf((double) this.getCommentsCount() / this.getForumUsersCount())
                     .setScale(2, RoundingMode.HALF_UP)
                     .doubleValue();
-        }
     }
 
     private double averageCommentsPerPost() {
-        if(getPostsCount()!=0) {
-            BigDecimal bg = new BigDecimal(getCommentsCount() / getPostsCount()).setScale(2, RoundingMode.HALF_UP);
-            return bg.doubleValue();
-        } else {
-            return 0.0;
-        }
+            return BigDecimal.valueOf((double) this.getCommentsCount() / this.getPostsCount())
+                    .setScale(2, RoundingMode.HALF_UP)
+                    .doubleValue();
     }
 
     public double getAveragePostsPerUser() {

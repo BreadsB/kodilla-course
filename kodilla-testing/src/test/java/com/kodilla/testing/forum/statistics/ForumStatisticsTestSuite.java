@@ -7,6 +7,7 @@ import org.mockito.junit.jupiter.MockitoExtension;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Scanner;
 
 import static org.mockito.Mockito.when;
 
@@ -22,6 +23,7 @@ public class ForumStatisticsTestSuite {
     @BeforeEach
     void before() {
         System.out.println("Test #"+ (++iterator));
+
     }
 
     @AfterAll
@@ -44,19 +46,19 @@ public class ForumStatisticsTestSuite {
     @Test
     void testQuantityOfPosts0() {
         ForumStatistics forum = new ForumStatistics();
-        List<String> testUserNameList = new ArrayList<>();
-        String name1 = "Mike Jonny";
-        String name2 = "Johny Dear";
-        String name3 = "Alonso Fabio";
-        testUserNameList.add(name1);
-        testUserNameList.add(name2);
-        testUserNameList.add(name3);
+        List<String> usersList = usersListGenerator(3);
+
 
         when(statisticsMock.postsCount()).thenReturn(0);
+        when(statisticsMock.commentsCount()).thenReturn(50);
+        when(statisticsMock.usersNames()).thenReturn(usersList);
 
         forum.calculateAdvStatistics(statisticsMock);
 
         Assertions.assertEquals(0, forum.getPostsCount());
+        Assertions.assertEquals(16.67, forum.getAverageCommentsPerUser());
+        Assertions.assertEquals(0.0, forum.getAveragePostsPerUser());
+        Assertions.assertEquals(0.0, forum.getAverageCommentsPerPost());
     }
 
     @DisplayName("Test method getting amount of posts, while it's quantity is 1000")
@@ -140,7 +142,7 @@ public class ForumStatisticsTestSuite {
         List<String> usersList = usersListGenerator(19);
         when(statisticsMock.usersNames()).thenReturn(usersList);
         when(statisticsMock.commentsCount()).thenReturn(97);
-//        when(statisticsMock.postsCount()).thenReturn(50);
+        when(statisticsMock.postsCount()).thenReturn(50);
 
         forum.calculateAdvStatistics(statisticsMock);
 
@@ -153,8 +155,16 @@ public class ForumStatisticsTestSuite {
     @Test
     void testAverageCommentsPerPosts() {
         ForumStatistics forum = new ForumStatistics();
-        when(statisticsMock.commentsCount()).thenReturn(97);
+        List<String> usersList = usersListGenerator(15);
 
+        when(statisticsMock.postsCount()).thenReturn(150);
+        when(statisticsMock.commentsCount()).thenReturn(97);
+        when(statisticsMock.usersNames()).thenReturn(usersList);
+
+        forum.calculateAdvStatistics(statisticsMock);
+
+        Assertions.assertEquals(0.65, forum.getAverageCommentsPerPost());
+        Assertions.assertEquals(15, forum.getForumUsersCount());
     }
 
     @DisplayName("Get quantity of Users - case quantity 0")
