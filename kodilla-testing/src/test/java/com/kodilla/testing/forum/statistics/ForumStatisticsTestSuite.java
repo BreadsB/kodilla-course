@@ -3,6 +3,7 @@ package com.kodilla.testing.forum.statistics;
 import org.junit.jupiter.api.*;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.Mock;
+import org.mockito.internal.matchers.Null;
 import org.mockito.junit.jupiter.MockitoExtension;
 
 import java.util.ArrayList;
@@ -65,40 +66,62 @@ public class ForumStatisticsTestSuite {
     @Test
     void testQuantityOfPosts1000() {
         ForumStatistics forum = new ForumStatistics();
+        List<String> usersList = usersListGenerator(7);
         when(statisticsMock.postsCount()).thenReturn(1000);
+        when(statisticsMock.commentsCount()).thenReturn(50);
+        when(statisticsMock.usersNames()).thenReturn(usersList);
 
         forum.calculateAdvStatistics(statisticsMock);
 
         Assertions.assertEquals(1000, forum.getPostsCount());
+        Assertions.assertEquals(7.14, forum.getAverageCommentsPerUser());
+        Assertions.assertEquals(142.86, forum.getAveragePostsPerUser());
+        Assertions.assertEquals(0.05, forum.getAverageCommentsPerPost());
     }
 
     @DisplayName("Testing method that gets amount of Comments while its quantity equals 0")
     @Test
     void testZeroAmountOfComments() {
         ForumStatistics forum = new ForumStatistics();
+        List<String> usersList = usersListGenerator(10);
+        when(statisticsMock.postsCount()).thenReturn(100);
         when(statisticsMock.commentsCount()).thenReturn(0);
+        when(statisticsMock.usersNames()).thenReturn(usersList);
 
         forum.calculateAdvStatistics(statisticsMock);
 
         Assertions.assertEquals(0, forum.getCommentsCount());
+        Assertions.assertEquals(0.0, forum.getAverageCommentsPerUser());
+        Assertions.assertEquals(10.0, forum.getAveragePostsPerUser());
+        Assertions.assertEquals(0.0, forum.getAverageCommentsPerPost());
     }
 
     @DisplayName("Testing method that checks if there is less comments than posts using Mock")
     @Test
     void testCommentsLessThanPosts() {
         ForumStatistics forum = new ForumStatistics();
-        when(statisticsMock.commentsCount()).thenReturn(30);
-        when(statisticsMock.postsCount()).thenReturn(50);
+        List<String> usersList = usersListGenerator(10);
+        when(statisticsMock.usersNames()).thenReturn(usersList);
+        when(statisticsMock.postsCount()).thenReturn(60);
+        when(statisticsMock.commentsCount()).thenReturn(20);
+
 
         forum.calculateAdvStatistics(statisticsMock);
 
+        Assertions.assertEquals(20, forum.getCommentsCount());
+        Assertions.assertEquals(60, forum.getPostsCount());
         Assertions.assertTrue(forum.getCommentsCount() < forum.getPostsCount());
+        Assertions.assertEquals(2.0, forum.getAverageCommentsPerUser());
+        Assertions.assertEquals(0.33, forum.getAverageCommentsPerPost());
+        Assertions.assertEquals(6.0, forum.getAveragePostsPerUser());
     }
 
     @DisplayName("Testing method that checks if there is more comments than posts using Mock")
     @Test
     void testCommentsMoreThanPosts() {
         ForumStatistics forum = new ForumStatistics();
+        List<String> usersList = usersListGenerator(10);
+        when(statisticsMock.usersNames()).thenReturn(usersList);
         when(statisticsMock.commentsCount()).thenReturn(30);
         when(statisticsMock.postsCount()).thenReturn(50);
 
@@ -107,17 +130,27 @@ public class ForumStatisticsTestSuite {
         Assertions.assertEquals(30, forum.getCommentsCount());
         Assertions.assertEquals(50, forum.getPostsCount());
         Assertions.assertFalse(forum.getCommentsCount() > forum.getPostsCount());
+        Assertions.assertEquals(3.0, forum.getAverageCommentsPerUser());
+        Assertions.assertEquals(0.6, forum.getAverageCommentsPerPost());
+        Assertions.assertEquals(5.0, forum.getAveragePostsPerUser());
+
     }
 
     @DisplayName("Test method getting amount of users, while it's quantity is 0")
     @Test
     void testZeroAmountOfUsers() {
         ForumStatistics forum = new ForumStatistics();
-        when(statisticsMock.commentsCount()).thenReturn(0);
+        List<String> usersList = usersListGenerator(0);
+        when(statisticsMock.usersNames()).thenReturn(usersList);
+        when(statisticsMock.postsCount()).thenReturn(50);
+        when(statisticsMock.commentsCount()).thenReturn(10);
 
         forum.calculateAdvStatistics(statisticsMock);
 
-        Assertions.assertEquals(0, forum.getCommentsCount());
+        Assertions.assertEquals(0, forum.getForumUsersCount());
+        Assertions.assertEquals(0.0, forum.getAverageCommentsPerUser());
+        Assertions.assertEquals(0.2, forum.getAverageCommentsPerPost());
+        Assertions.assertEquals(0.0, forum.getAveragePostsPerUser());
     }
 
     @DisplayName("Get average quantity of posts per user")
@@ -127,6 +160,7 @@ public class ForumStatisticsTestSuite {
         List<String> usersList = usersListGenerator(15);
         when(statisticsMock.usersNames()).thenReturn(usersList);
         when(statisticsMock.postsCount()).thenReturn(400);
+        when(statisticsMock.commentsCount()).thenReturn(10);
 
         forum.calculateAdvStatistics(statisticsMock);
 
@@ -173,11 +207,16 @@ public class ForumStatisticsTestSuite {
         ForumStatistics forum = new ForumStatistics();
         List<String> usersList = usersListGenerator(0);
 
+        when(statisticsMock.postsCount()).thenReturn(100);
+        when(statisticsMock.commentsCount()).thenReturn(10);
         when(statisticsMock.usersNames()).thenReturn(usersList);
 
         forum.calculateAdvStatistics(statisticsMock);
 
         Assertions.assertEquals(0, forum.getForumUsersCount());
+        Assertions.assertEquals(0.0, forum.getAverageCommentsPerUser());
+        Assertions.assertEquals(0.1, forum.getAverageCommentsPerPost());
+        Assertions.assertEquals(0.0, forum.getAveragePostsPerUser());
     }
 
     @DisplayName("Get quantity of Users - case quantity 100")
@@ -187,10 +226,14 @@ public class ForumStatisticsTestSuite {
         List<String> usersList = usersListGenerator(100);
 
         when(statisticsMock.usersNames()).thenReturn(usersList);
+        when(statisticsMock.postsCount()).thenReturn(100);
+        when(statisticsMock.commentsCount()).thenReturn(50);
 
         forum.calculateAdvStatistics(statisticsMock);
-        double result = forum.getForumUsersCount();
 
-        Assertions.assertEquals(100, result);
+        Assertions.assertEquals(100, forum.getForumUsersCount());
+        Assertions.assertEquals(0.5, forum.getAverageCommentsPerUser());
+        Assertions.assertEquals(0.5, forum.getAverageCommentsPerPost());
+        Assertions.assertEquals(1.0, forum.getAveragePostsPerUser());
     }
 }
