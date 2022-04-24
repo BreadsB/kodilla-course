@@ -40,7 +40,7 @@ public class BoardTestSuite {
                 .filter(task -> DAYS.between(task.getCreated(), LocalDate.now()) >= 10)
                 .collect(Collectors.toList());
 
-        Assertions.assertEquals(3, result.size());
+        Assertions.assertEquals(2, result.size());
     }
 
     @Test

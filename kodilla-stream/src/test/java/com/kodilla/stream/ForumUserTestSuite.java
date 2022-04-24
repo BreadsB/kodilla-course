@@ -53,10 +53,10 @@ public class ForumUserTestSuite {
         user9.addFriend(user3);
 
         Set<ForumUser> intro = new HashSet<>();
-        when(mockUser.getFriends()).thenReturn(intro);
+//        when(mockUser.getFriends()).thenReturn(intro);
         Set<ForumUser> result = user1.getFriends();
 
-        Assertions.assertEquals(0, result.size());
+        Assertions.assertEquals(3, result.size());
 
         Assertions.assertEquals(3, user1.getFriends().size());
         assertEquals(3, user1.getLocationOfFriends().size());
