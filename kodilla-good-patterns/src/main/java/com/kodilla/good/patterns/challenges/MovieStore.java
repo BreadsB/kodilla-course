@@ -32,11 +32,11 @@ public class MovieStore {
 
         MovieStore movieStore = new MovieStore();
         Map<String, List<String>> movieStoreList = movieStore.getMovies();
-        System.out.println("\n---First chance---");
+
         String newString = movieStoreList.entrySet().stream()
                 .flatMap(x->x.getValue().stream())
-//                .map(e->e.toString())
                 .reduce("",(partialString, element) -> partialString+"!"+element);
+
         System.out.println(newString);
     }
 }
