@@ -7,5 +7,6 @@ public class ShopService {
         OrderRequestRetriever orderRetriever = new OrderRequestRetriever();
         OrderRequest orderRequest = orderRetriever.orderFromGlutenFreeShop();
         orderRequest.getSupplier().checkRequest(orderRequest);
+
     }
 }
