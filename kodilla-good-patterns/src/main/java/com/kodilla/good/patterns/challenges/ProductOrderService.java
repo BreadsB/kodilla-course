@@ -5,17 +5,35 @@ import java.util.List;
 
 public class ProductOrderService {
 
-    public boolean order(final User user, final LocalDate orderDate, final List<BucketElement> bucketElementList) {
-        System.out.println("User placed an order");
+    private OrderInformationService orderInformationService;
+    private OrderRepository orderRepository;
+
+    public static boolean order(final User user, final LocalDate orderDate, final List<BucketElement> bucketElementList) {
         return user != null & orderDate != null & bucketElementList != null & !bucketElementList.isEmpty();
     }
 
+    public ProductOrderService(final OrderInformationService orderInformationService,
+                          final OrderRepository orderRepository) {
+        this.orderInformationService = orderInformationService;
+        this.orderRepository = orderRepository;
+    }
+    public OrderDto process(Order order) {
+        boolean orderAccepted = ProductOrderService.order(order.getUser(), order.getOrderDate(), order.getBucketList());
+
+        if (orderAccepted) {
+            orderInformationService.sendConfirmationEmail(order.getUser());
+            orderRepository.putOrderInRepository(order.getUser(), order.getOrderDate(), order.getBucketList());
+            return new OrderDto(order.getUser(), true);
+        } else {
+            return new OrderDto(order.getUser(), false);
+        }
+    }
     public static void main(String[] args) {
 
         OrderRetriever orderRetriever = new OrderRetriever();
         Order order1 = orderRetriever.retrieve();
 
-        OrderProcessor orderProcessor = new OrderProcessor(new OrderInformationService(), new OrderRepository(), new ProductOrderService());
-        orderProcessor.process(order1);
+        ProductOrderService productOrderService = new ProductOrderService(new OrderInformationService(), new OrderRepository());
+        productOrderService.process(order1);
     }
 }

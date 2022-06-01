@@ -13,7 +13,6 @@ public class OrderRetriever {
         bucketList.add(new BucketElement("Socks", 3));
         bucketList.add(new BucketElement("Glasses", 8));
         bucketList.add(new BucketElement("T-shirt", 1));
-        System.out.println("Retrieving new order");
 
         return new Order(user1, orderDate, bucketList);
     }
