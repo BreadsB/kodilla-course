@@ -9,11 +9,12 @@ public class GlutenFreeShop implements ShopSupplier {
     }
 
     public OrderDto process(OrderRequest orderRequest) {
-            OrderRepository glutenFreeShopOrderRepository = new OrderRepository();
-            InformationService informationService = new InformationService();
-            glutenFreeShopOrderRepository.putOrderInRepository();
-            informationService.sendConfirmation(getShopName());
+        OrderRepository glutenFreeShopOrderRepository = new OrderRepository();
+        glutenFreeShopOrderRepository.putOrderInRepository();
 
-            return new OrderDto(orderRequest.getSupplier(), orderRequest.getProduct(), orderRequest.getQuantity());
+        InformationService informationService = new InformationService();
+        informationService.sendConfirmation(orderRequest.getSupplier().getShopName());
+
+        return new OrderDto(orderRequest.getSupplier(), orderRequest.getProduct(), orderRequest.getQuantity());
     }
 }
