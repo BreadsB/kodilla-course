@@ -4,6 +4,7 @@ public interface ShopSupplier {
 
     OrderDto process(OrderRequest orderRequest);
     String getShopName();
+    InformationService informationService = new InformationService();
 
     default OrderDto checkRequest(OrderRequest orderRequest) {
 
@@ -11,6 +12,7 @@ public interface ShopSupplier {
         boolean orderAccepted = orderRequest.getSupplier() != null & !orderRequest.getProduct().isBlank() & orderRequest.getQuantity() != 0.0;
 
         if (orderAccepted) {
+            informationService.sendConfirmation(getShopName());
             return process(orderRequest);
         } else {
             return new OrderDto(null, null, 0.0);
