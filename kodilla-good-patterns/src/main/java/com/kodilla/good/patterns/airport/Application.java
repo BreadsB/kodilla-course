@@ -1,7 +1,6 @@
 package com.kodilla.good.patterns.airport;
 
 import java.util.*;
-import java.util.stream.Collectors;
 
 public class Application {
     public static void main(String[] args) {
@@ -10,11 +9,11 @@ public class Application {
         flightRepository.createRepository();
         FlightConnectionService flightConnectionService = new FlightConnectionService(flightRepository);
 
-        flightConnectionService.findConnectionFrom("Krakow");
+        Set<Flight> flightList1 = flightConnectionService.findConnectionFrom("Krakow");
 
-        flightConnectionService.findConnectionTo("Gdansk");
+        Set<Flight> flightList2 = flightConnectionService.findConnectionTo("Gdansk");
 
-        flightConnectionService.findConnectionBetween("Krakow", "Gdansk");
-
+        Set<Flight> flightList3 = flightConnectionService.findConnectionBetween("Krakow", "Gdansk");
+        System.out.println(flightList3);
     }
 }
