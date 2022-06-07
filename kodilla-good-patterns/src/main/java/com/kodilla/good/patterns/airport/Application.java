@@ -14,6 +14,5 @@ public class Application {
         Set<Flight> flightList2 = flightConnectionService.findConnectionTo("Gdansk");
 
         Set<Flight> flightList3 = flightConnectionService.findConnectionBetween("Krakow", "Gdansk");
-        System.out.println(flightList3);
     }
 }
