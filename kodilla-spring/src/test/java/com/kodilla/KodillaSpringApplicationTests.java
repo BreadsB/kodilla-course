@@ -44,12 +44,11 @@ class KodillaSpringApplicationTests {
     @Test
     void testSquareLoadedIntoContainer() {
         ApplicationContext context =
-            new AnnotationConfigApplicationContext("com.kodilla.spring");
-        Shape shape = (Shape) context.getBean("createSquare");
+            new AnnotationConfigApplicationContext("com.kodilla.spring.shape");
+        Shape shape = (Shape) context.getBean("square");
 
         String name = shape.getShapeName();
 
-//        System.out.println(name);
         Assertions.assertEquals("This is a square.", name);
     }
 
