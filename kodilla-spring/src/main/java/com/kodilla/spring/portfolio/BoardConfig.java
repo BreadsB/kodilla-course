@@ -43,4 +43,9 @@ public class BoardConfig {
     public TaskList createDoneList() {
         return new TaskList("Done list");
     }
+
+    @Bean
+    public void showSomething() {
+        System.out.println("You used that properly");
+    }
 }

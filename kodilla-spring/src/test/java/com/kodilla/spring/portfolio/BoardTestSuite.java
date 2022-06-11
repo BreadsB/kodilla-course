@@ -8,6 +8,8 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 
+import java.util.Arrays;
+
 @SpringBootTest
 @DisplayName("Testing TaskList and Board using Spring")
 public class BoardTestSuite {
@@ -65,7 +67,7 @@ public class BoardTestSuite {
     void testAddTask() {
         //GIVEN
         ApplicationContext context = new AnnotationConfigApplicationContext(BoardConfig.class);
-        Board board = context.getBean(Board.class);
+        Board board = (Board) context.getBean(Board.class);
 
         //WHEN
         Assertions.assertTrue(board.getToDoList().addTask("Buy milk"));
@@ -84,5 +86,14 @@ public class BoardTestSuite {
         Assertions.assertEquals(3, board.getToDoList().getTaskList().size());
         Assertions.assertEquals(2, board.getInProgressList().getTaskList().size());
         Assertions.assertEquals(1, board.getDoneList().getTaskList().size());
+    }
+
+    @Test
+    void testSomething() {
+        ApplicationContext ctx = new AnnotationConfigApplicationContext(BoardConfig.class);
+        Arrays.stream(ctx.getBeanDefinitionNames())
+                .forEach(System.out::println);
+
+        ctx.getBean("showSomething");
     }
 }
