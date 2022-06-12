@@ -11,10 +11,10 @@ public class BigmacTestSuite {
                 .bun("Bun with sesame")
                 .sauce("standard")
                 .burgers(2)
-                .ingredient("Cheese")
-                .ingredient("Cheese")
-                .ingredient("Onion")
-                .ingredient("Tomato")
+                .ingredient(Ingredients.CHEESE)
+                .ingredient(Ingredients.CHEESE)
+                .ingredient(Ingredients.ONION)
+                .ingredient(Ingredients.CUCUMBER)
                 .build();
 
         Assertions.assertEquals(2, doubleCheese.getBurgers());
