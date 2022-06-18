@@ -14,7 +14,7 @@ public class SimpleInvoiceTestSuite {
     void testGetValueToPay() {
         SimpleProduct product1 = new SimpleProduct("Fridge",17.28);
         SimpleProduct product2 = new SimpleProduct("Oven",11.99);
-        SimpleProduct product3 = new SimpleProduct("Washer",6.49);
+        SimpleProduct product3 = new SimpleProduct("Product 2",6.49);
         SimpleItem item1 = new SimpleItem(product1, 2);
         SimpleItem item2 = new SimpleItem(product2, 3.5);
         SimpleItem item3 = new SimpleItem(product3, 5);
