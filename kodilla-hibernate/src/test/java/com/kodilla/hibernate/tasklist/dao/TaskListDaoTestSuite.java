@@ -1,17 +1,18 @@
 package com.kodilla.hibernate.tasklist.dao;
 
-import com.kodilla.hibernate.tasklist.TaskList;
+import com.kodilla.hibernate.tasklist.TaskList2;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
+import java.math.BigDecimal;
 import java.util.List;
-import java.util.Optional;
 
 @SpringBootTest
 public class TaskListDaoTestSuite {
 
+    private static final String LISTNAME = "ToDo";
     @Autowired
     private TaskListDao taskListDao;
 
@@ -20,12 +21,12 @@ public class TaskListDaoTestSuite {
 
     @Test
     void testFindByListName() {
-        TaskList taskList = new TaskList(LIST_NAME, DESCRIPTION);
+        TaskList2 taskList = new TaskList2(LIST_NAME, DESCRIPTION);
 
         taskListDao.save(taskList);
 
         String listName = taskList.getListName();
-        List<TaskList> readTaskLists = taskListDao.findByListName(listName);
+        List<TaskList2> readTaskLists = taskListDao.findByListName(listName);
 
         Assertions.assertEquals(1, readTaskLists.size());
 
