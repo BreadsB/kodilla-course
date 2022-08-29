@@ -1,36 +1,32 @@
 package com.kodilla.hibernate.invoice;
 
-import com.kodilla.hibernate.task.Task;
 import com.sun.istack.NotNull;
-import org.hibernate.annotations.Fetch;
-import org.hibernate.mapping.Join;
-
 import javax.persistence.*;
 import java.math.BigDecimal;
 
 @Entity
-@Table(name = "item")
-public class Item {
+@Table(name = "ITEMS")
+public final class Item {
 
-    int id;
-    Product product;
-    BigDecimal price;
-    int quantity;
-    BigDecimal value;
-    Invoice invoice;
+    private int id;
+    private Product product;
+    private BigDecimal price;
+    private int quantity;
+    private BigDecimal value;
+    private Invoice invoice;
 
     public Item() {}
 
-    public Item(Product product, BigDecimal price, int quantity) {
-        this.product = product;
+    public Item(BigDecimal price, int quantity) {
         this.price = price;
         this.quantity = quantity;
+        this.value = price.multiply(new BigDecimal(quantity));
     }
 
     @Id
     @GeneratedValue
     @NotNull
-    @Column(name = "ITEM_ID")
+    @Column(name = "ITEM_ID", unique = true)
     public int getId() {
         return id;
     }
@@ -39,7 +35,7 @@ public class Item {
         this.id = id;
     }
 
-    @ManyToOne
+    @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "PRODUCT_ID")
     public Product getProduct() {
         return product;
@@ -49,7 +45,8 @@ public class Item {
         this.product = product;
     }
 
-    @Column(name = "ITEM_PRICE")
+    @NotNull
+    @Column(name = "PRICE")
     public BigDecimal getPrice() {
         return price;
     }
@@ -58,7 +55,8 @@ public class Item {
         this.price = price;
     }
 
-    @Column(name = "ITEM_QUANTITY")
+    @NotNull
+    @Column(name = "QUANTITY")
     public int getQuantity() {
         return quantity;
     }
@@ -67,7 +65,8 @@ public class Item {
         this.quantity = quantity;
     }
 
-    @Column(name = "ITEM_VALUE")
+    @NotNull
+    @Column(name = "VALUE")
     public BigDecimal getValue() {
         return value;
     }
@@ -76,7 +75,7 @@ public class Item {
         this.value = value;
     }
 
-    @ManyToOne
+    @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "INVOICE_ID")
     public Invoice getInvoice() {
         return invoice;
