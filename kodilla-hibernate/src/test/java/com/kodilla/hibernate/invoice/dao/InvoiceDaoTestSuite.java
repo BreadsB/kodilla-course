@@ -55,6 +55,6 @@ public class InvoiceDaoTestSuite {
         Assertions.assertTrue(invoice1.getId() > 0);
 
         //CleanUp
-//        invoiceDao.deleteById(id);
+        invoiceDao.deleteById(id);
     }
 }
