@@ -7,6 +7,8 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
+import java.util.List;
+
 @SpringBootTest
 public class CompanyDaoTestSuite {
 
@@ -30,7 +32,6 @@ public class CompanyDaoTestSuite {
         lindaKovalsky.getCompanies().add(dataMaesters);
         lindaKovalsky.getCompanies().add(greyMatter);
 
-
         companyDao.save(softwareMachine);
         int softwareMachineId = softwareMachine.getId();
         companyDao.save(dataMaesters);
@@ -38,6 +39,9 @@ public class CompanyDaoTestSuite {
         companyDao.save(greyMatter);
         int greyMatterId = greyMatter.getId();
 
+        List<Company> tcl = companyDao.retrieveCompaniesBeginsFrom("Sof");
+
+        Assertions.assertEquals(1, tcl.size());
         Assertions.assertNotEquals(0, softwareMachineId);
         Assertions.assertNotEquals(0, dataMaestersId);
         Assertions.assertNotEquals(0, greyMatterId);

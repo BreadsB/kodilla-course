@@ -5,6 +5,12 @@ import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
 
+@NamedNativeQuery(
+        name = "Company.retrieveCompaniesBeginsFrom",
+        query = "SELECT * FROM COMPANIES WHERE SUBSTRING(company_name, 1, 3) = :NAME",
+        resultClass = Company.class
+)
+
 @Entity
 @Table(name = "COMPANIES")
 public class Company {
