@@ -1,0 +1,23 @@
+{
+	"carname": "Aygo",
+	"producer": "Toyota",
+	"fotele": {
+	  "pierwszy": {
+		"material":"",
+		"color":""
+		}
+	  "drugi": {
+		"material":"",
+		"color":""
+		}
+	  "trzeci": {
+		"material":"",
+		"color":""
+		}
+	  "czwarty": {
+		"material":"",
+		"color":""
+		}
+	}
+	"pojemnoscsilnika":3.5
+}
