@@ -1,23 +1,23 @@
 {
 	"carname": "Aygo",
 	"producer": "Toyota",
-	"fotele": {
-	  "pierwszy": {
-		"material":"",
-		"color":""
+	"seats": {
+	  "first": {
+		"material":"alcantara",
+		"color":"black"
 		}
-	  "drugi": {
-		"material":"",
-		"color":""
+	  "second": {
+		"material":"cotton",
+		"color":"brown"
 		}
-	  "trzeci": {
-		"material":"",
-		"color":""
+	  "third": {
+		"material":"leather",
+		"color":"white"
 		}
-	  "czwarty": {
-		"material":"",
-		"color":""
+	  "fourth": {
+		"material":"faux leather",
+		"color":"red"
 		}
 	}
-	"pojemnoscsilnika":3.5
+	"engineCapacity": 1.5
 }
